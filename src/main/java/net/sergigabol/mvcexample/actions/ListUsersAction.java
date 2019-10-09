@@ -8,6 +8,7 @@ package net.sergigabol.mvcexample.actions;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,8 @@ import net.sergigabol.mvcexample.views.ViewResolver;
  *
  * @author gabalca
  */
-@ActionQualifier("listusers")
+@RequestScoped
+@ActionQualifier("/listusers")
 public class ListUsersAction implements Action{
     
     private static final Logger LOG = Logger.getLogger(ListUsersAction.class.getName());

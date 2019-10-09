@@ -5,6 +5,7 @@
  */
 package net.sergigabol.mvcexample.actions;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import net.sergigabol.mvcexample.views.View;
@@ -14,6 +15,7 @@ import net.sergigabol.mvcexample.views.ViewResolver;
  *
  * @author gabalca
  */
+@RequestScoped
 @ActionQualifier("notfound")
 public class NotFoundAction implements Action{
 

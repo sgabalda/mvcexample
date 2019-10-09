@@ -5,6 +5,8 @@
  */
 package net.sergigabol.mvcexample.actions;
 
+import java.util.logging.Logger;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.util.AnnotationLiteral;
@@ -15,10 +17,13 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author gabalca
  */
+@ApplicationScoped
 public class CDIActionFactory implements ActionFactory{
+
+    private static final Logger LOG = Logger.getLogger(CDIActionFactory.class.getName());
     
     @Inject
-    @Any
+    @Any    
     Instance<Action> allActions;
 
     @Override
@@ -26,6 +31,8 @@ public class CDIActionFactory implements ActionFactory{
         
         String path = getRequestPath(req);
         //Obtenir la action que té un qualifier @ActionQualifier amb el path de la URL
+        
+        LOG.info("El path és "+path);
         
         Action a = getActionByQualifier(path);
                 
@@ -47,7 +54,13 @@ public class CDIActionFactory implements ActionFactory{
             
         }
         
-        return allActions.select(new ActionQualifierLiteral()).get();
+        Instance<Action> a = allActions.select(new ActionQualifierLiteral());
+        if(a.isResolvable()){
+            return a.get();
+        }else{
+            return null;
+        }
+        
     }
     
     private String getRequestPath(HttpServletRequest req){

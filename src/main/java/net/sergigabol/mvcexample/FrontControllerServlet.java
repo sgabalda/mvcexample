@@ -42,7 +42,7 @@ public class FrontControllerServlet extends HttpServlet {
         Action a = actionFactory.getAction(request);
         
         //realitzar l'acció, i obtenir la vista que cal mostrar
-        View v = a.executeAction(request, response);
+        View v = a.executeAction(request);
         
         //invocar la vista per a que arribi a l'usuari
         v.renderView(request, response);
